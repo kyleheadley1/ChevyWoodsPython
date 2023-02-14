@@ -1,9 +1,9 @@
 import os
-cwd = os.getcwd()
-cwdfiles = os.listdir()
+wd = os.getcwd()
+wdfiles = os.listdir()
 
-for file in cwdfiles:
-    path = os.path.join(cwd, file)
+for file in wdfiles:
+    path = os.path.join(wd, file)
     mydict = { 
         'name' : file, 
         'size' : os.path.getsize(file),
