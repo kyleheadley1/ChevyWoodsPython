@@ -1,6 +1,6 @@
 import os
 cwd = os.getcwd()
-cwdfiles = os.listdir(cwd)
+cwdfiles = os.listdir()
 
 for file in cwdfiles:
     path = os.path.join(cwd, file)
