@@ -1,3 +1,4 @@
+#Access os module, declare variables for Working directory and files in directory
 import os
 wd = os.getcwd()
 wdfiles = os.listdir()
