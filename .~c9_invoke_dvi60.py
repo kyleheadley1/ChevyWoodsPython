@@ -12,4 +12,4 @@ for file in wdfiles:
     }
     print(mydict)
 
-
+print(os.listdir())
