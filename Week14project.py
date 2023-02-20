@@ -49,4 +49,5 @@ with table.batch_writer() as batch:
     batch.put_item(Item={"Name": "Jose", "Drink": "Casamigos"})
     batch.put_item(Item={"Name": "Aleane", "Drink": "RumAndCoke"})
     batch.put_item(Item={"Name": "Angie", "Drink": "ExpressoMartini"})
-print(batch) #returns confirmation
+
+print(batch) #returns confirmation of batch write
