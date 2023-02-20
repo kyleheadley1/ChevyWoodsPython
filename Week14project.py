@@ -45,8 +45,8 @@ with table.batch_writer() as batch:
     batch.put_item(Item={"Name": "Kyle", "Drink": "KentuckyMule"})
     batch.put_item(Item={"Name": "Sarah", "Drink": "RumAndRedbull"})
     batch.put_item(Item={"Name": "Lucy", "Drink": "HennyCoolada"})
-    batch.put_item(Item={"Name": "Roberly", "Drink": "Jameson"})
+    batch.put_item(Item={"Name": "Roberly", "Drink": "D'usse"})
     batch.put_item(Item={"Name": "Jose", "Drink": "Casamigos"})
     batch.put_item(Item={"Name": "Aleane", "Drink": "RumAndCoke"})
     batch.put_item(Item={"Name": "Angie", "Drink": "ExpressoMartini"})
-print(batch)
+print(batch) #returns confirmation
