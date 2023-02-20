@@ -1,13 +1,9 @@
 import boto3  #allows access to boto3
 
-dynamodb = boto3.resource(
-    'dynamodb',
-    aws_access_key_id='AKIAS6FLDRQ5YYONVTUB',
-    aws_secret_access_key='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',
-    )
+dynamodb = boto3.resource( #allows access to DynamoDB with boto3
+    'dynamodb')
 
 
-# Create the DynamoDB table.
 table = dynamodb.create_table ( # Create the DynamoDB table.
     TableName = 'DrinkChoice',
        KeySchema = [
@@ -41,4 +37,8 @@ table.wait_until_exists() # Waits until the table exists before finishing
 
 print(table) #returns confirmation of table creation
 
-
+with table.batch_writer() as batch:
+    batch.put_item(Item={"Name": "Alex", "Drink": "TequilaSeltzer"})
+    batch.put_item(Item={"Name": "Zozo", "Drink": "Margarita"})
+    batch.put_item(Item={"Name": "Melanie", "Drink": "Jameson"})
+print(batch)
