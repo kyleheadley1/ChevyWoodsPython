@@ -51,3 +51,8 @@ with table.batch_writer() as batch:
     batch.put_item(Item={"Name": "Angie", "Drink": "ExpressoMartini"})
 
 print(batch) #returns confirmation of batch write
+
+response = table.scan()
+print("The query returned the following items:")
+for item in response['Items']:
+    print(item)
