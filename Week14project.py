@@ -52,7 +52,7 @@ with table.batch_writer() as batch:
 
 print(batch) #returns confirmation of batch write
 
-response = table.scan()
+response = table.scan() #scans table and returns all items
 print("The query returned the following items:")
 for item in response['Items']:
     print(item)
