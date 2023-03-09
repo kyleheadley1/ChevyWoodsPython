@@ -1,0 +1,6 @@
+FROM python:3.12.0a5-bullseye
+
+RUN apt-get update
+
+RUN apt-get -y install python3-pip \
+    && pip install boto3
