@@ -1,7 +1,4 @@
-import boto3  #allows access to boto3
-
-dynamodb = boto3.resource( #allows access to DynamoDB with boto3
-    'dynamodb')
+cd 
 
 
 table = dynamodb.create_table ( # Create the DynamoDB table.
