@@ -8,7 +8,9 @@ variable "instance_type" {
     default = "t2.micro"
 }
 
+
 variable "security_group" {
     type = string
     default = "t2.micro"
 }
+
