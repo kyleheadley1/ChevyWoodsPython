@@ -1,36 +1,13 @@
-resource "aws_instance" "terrajenkinsec2" {
-  ami                      = var.ami
-  instance_type            = var.instance_type
-  vpc_security_group_ids   = [var.security_group_id]
-  user_data     = <<EOF
-    #!/bin/bash
-    yum update –y
-    wget -O /etc/yum.repos.d/jenkins.repo \
-    https://pkg.jenkins.io/redhat-stable/jenkins.repo
-    rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-    yum upgrade
-    amazon-linux-extras install java-openjdk11 -y #install Java
-    yum install jenkins -y #install Jenkins
-    systemctl enable jenkins #Jenkins starts on boot
-    systemctl start jenkins #starts Jenkins service now
-    EOF
-
-tags = {
-    Name = "Jenkins"
-  }
-}
-
-
 resource "aws_security_group" "JenkinsSG" {
   name        = "JenkinsSG"
   description = "Allow HTTPS/ssh and Jenkins"
-  vpc_id      = var.vpc_id
+ 
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["44.211.206.215/32"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -54,6 +31,39 @@ resource "aws_security_group" "JenkinsSG" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+#vpc_security_group_ids = [aws_security_group.jenkins.id]
+
+#resource "aws_network_interface_sg_attachment" "sg_attachment" {
+#security_group_id    = "${data.aws_security_group.JenkinsSG.id}"
+#}
+
+resource "aws_instance" "terrajenkinsec2" {
+  ami           = var.ami
+  instance_type = var.instance_type
+  user_data = <<-EOF
+    #!/bin/bash
+    sudo yum update -y
+    sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    sudo yum upgrade -y
+    sudo amazon-linux-extras install java-openjdk11 -y
+    sudo yum install jenkins -y
+    sudo systemctl enable jenkins
+    sudo systemctl start jenkins
+  EOF
+
+  vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
+
+  tags = {
+    Name = "Jenkins"
+  }
+}
+
 resource "aws_s3_bucket" "jenkinsArtifactBucket" {
   bucket = var.s3bucketname
+}
+
+output "jenkins_url" {
+  value = "http://${aws_instance.terrajenkinsec2.public_ip}:8080/"
 }
