@@ -64,6 +64,7 @@ resource "aws_s3_bucket" "jenkinsArtifactBucket" {
   bucket = var.s3bucketname
 }
 
-output "jenkins_url" {
+output "jenkins_url" {      #Prints instance public ip to console with :8080
   value = "http://${aws_instance.terrajenkinsec2.public_ip}:8080/"
 }
+sadasdsadas
