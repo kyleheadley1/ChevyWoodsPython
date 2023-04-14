@@ -16,6 +16,13 @@ resource "aws_security_group" "JenkinsSG" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     from_port   = 443
@@ -40,12 +47,12 @@ resource "aws_security_group" "JenkinsSG" {
 resource "aws_instance" "terrajenkinsec2" {
   ami           = var.ami
   instance_type = var.instance_type
-  user_data     = file("apache.sh")
+  user_data     = file("jenkins.sh")
 
   vpc_security_group_ids = [aws_security_group.JenkinsSG.id]
 
   tags = {
-    Name = "Jenkins"
+    Name = "JenkinsL2"
   }
 }
 resource "aws_s3_bucket" "jenkinsArtifactBucket" {
